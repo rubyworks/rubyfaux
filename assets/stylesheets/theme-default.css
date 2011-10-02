@@ -1,0 +1,20 @@
+/*
+* This file overrides the theme_default.css file in RDoc+.
+* It's a temporary solution to fix the styles issues caused
+* by the addition of themes to RDoc+.
+* Ultimately this file should be removed and other .css
+* files adjusted to accomodate.
+*
+* On the other hand maybe this format whould not be themable. 
+*/
+
+
+h1,h2,h3,h4,h5,h6,th,dt,.h {
+  font-family: Palatino, Times, serif;
+  font-weight: bold;
+}
+
+p,li,td,dd {
+  font-family: "Helvetica Neue", Helvetica, Tahoma, sans-serif;
+}
+
