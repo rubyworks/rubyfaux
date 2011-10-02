@@ -1,1 +1,609 @@
-My GitHub Page
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="generator" content="Rubyfaux" />
+
+  <title>API</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico" />
+
+  <!-- Provide console simulation for firebug-less environments -->
+  <script src="assets/javascripts/firebug.js"></script>
+
+  <!-- Provides JQuery framework. -->
+  <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+
+  <!-- Provides templating system. -->
+  <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+
+  <!-- Provides history system. -->
+  <script src="assets/javascripts/jquery.history.js"></script>
+
+  <!-- Provides search filtering. -->
+  <script src="assets/javascripts/quicksearch.js"></script>
+
+  <!-- Provides rdoc support. -->
+  <script src="assets/javascripts/rundown.js"></script>
+
+  <!-- Provides syntax highlighting support. -->
+  <script src="http://yandex.st/highlightjs/6.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="http://yandex.st/highlightjs/6.0/styles/default.min.css">
+
+  <!-- Provides keyboard shortcuts. -->
+  <script src="assets/javascripts/keymaster.js"></script>
+
+  <!-- Rubyfaux javascript -->
+  <script type="text/javascript" charset="utf-8" src="assets/javascripts/rubyfaux.js"></script>
+  <script type="text/javascript" charset="utf-8" src="assets/javascripts/main.js"></script>
+ 
+  <!-- Rubyfaux stylesheets -->
+  <link rel="stylesheet" type="text/css" href="assets/stylesheets/reset.css" />
+  <link rel="stylesheet" type="text/css" href="assets/stylesheets/low.css" />
+  <link rel="stylesheet" type="text/css" href="assets/stylesheets/screen.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="assets/stylesheets/print.css"  media="print"  />
+  <link rel="stylesheet" type="text/css" href="assets/stylesheets/prettify.css" media="screen" />
+
+  <!-- Ready -->
+  <script type="text/javascript">
+    $(document).ready(function(){
+	    //hookHighlightSyntax();
+	    //hookQuickSearch();
+      Rubyfaux.bootup();
+	    // $('ul.link-list a').bind( "click", highlightClickTarget );
+    });
+  </script>
+
+</head>
+<body>
+
+<div id="page">
+
+  <div id="header">
+    <div id="title"></div>
+    <div id="nav"></div>
+  </div>
+
+  <hr class="hidden-modern">
+
+  <div id="main-wrapper">
+    <div id="main">
+      <div id="content-wrapper">
+
+        <div id="heading-wrapper-1">
+          <div id="heading-wrapper-2">
+            <div id="heading"></div>
+          </div>
+        </div>
+
+        <div id="content" style="clear: both;"></div>
+
+      </div>
+
+      <hr class="hidden-modern" />
+
+      <div id="sidebar-wrapper">
+        <div id="sidebar"></div>
+      </div>
+
+    </div>
+
+    <div id="searchbox"></div>
+  </div>
+
+  <hr class="hidden-modern">
+
+  <div id="footer">
+    <div id="nav"></div>
+    <div id="copyright" class="fine-print">
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Title Template -->
+
+<script type="text/x-jquery-tmpl" id="template-title">
+  <div id="logo" style="font-size: 52px; font-family: times, serif; color: black;">
+    <img src="assets/images/logo.gif" alt="${title}" title="" height="119" align="absmiddle">${title}
+  </div>
+</script>
+
+
+<!-- Navigation Template -->
+
+<script type="text/x-jquery-tmpl" id="template-navigation">
+  <div class="site-links">
+    <span><a href="#">Main</a></span><span class="separator"> | </span>
+    {{each(name,url) Rubyfaux.metadata.resources}}
+      <a href="${url}">${name.capitalize()}</a> <span class="separator"> | </span>
+    {{/each}}
+    <a href="http://www.ruby-lang.org/en/about/">About Ruby</a>
+  </div>
+</script>
+
+
+<!-- Document Header Template -->
+
+<script type="text/x-jquery-tmpl" id="template-document-heading">
+  <h1>${name}</h1>
+</script>
+
+
+<!-- Document Template -->
+
+<script type="text/x-jquery-tmpl" id="template-document-content">
+  {{html Rubyfaux.markup(text,format)}}
+</script>
+
+
+<!-- Document Sidebar Template -->
+
+<script type="text/x-jquery-tmpl" id="template-document-sidebar">
+  <!-- Quicksearch -->
+  <div class="navigation" style="background-color: transparent;">
+    <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+    <fieldset>
+      <legend>Quicksearch</legend>
+      <input type="text" name="quicksearch" value="" class="quicksearch-field" style="width: 95%;"/>
+    </fieldset>
+    </form>
+  </div>
+
+  <hr class="hidden-modern" /><br/><br/>
+
+  <!-- documents -->
+  {{if Rubyfaux.documentation['documents'].length > 0}}
+  <div class="navigation">
+    <h3 class="section-header">Document Index</h3>
+    <ul class="quicksearch-target">
+    {{each(i,f) Rubyfaux.documentation['documents']}}
+      <li class="file"><a href="#${f.id}">${f.name}</a></li>
+    {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+
+  <!-- classes/modules -->
+  {{if Rubyfaux.documentation['classes'].length > 0}}
+  <div class="navigation">
+    <h3 class="section-header">Class Index</h3>
+    <ul class="quicksearch-target">
+    {{each(i,c) Rubyfaux.documentation['classes']}}
+      <li class="${c['!']}"><a href="#${c.id}">${c.name}</a></li>
+    {{/each}}
+    </ul>
+    <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+  </div>
+  {{/if}}
+
+  <!-- methods -->
+  {{if Rubyfaux.documentation['methods'].length > 0}}
+  <div class="navigation">
+    <h3 class="section-header">Method Index</h3>
+    <ul class="quicksearch-target">
+      {{each(i,m) Rubyfaux.documentation['methods']}}
+        <li class="method" style="clear: both; overflow:hidden; white-space:nowrap;">
+          <a href="${Rubyfaux.method_href(m)}" title="${m.namespace}">
+            ${m.name} <!-- pretty name ? -->
+          </a>
+          &nbsp;<span style="font-size: 80%; color: #777;">${m.namespace}</span>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+
+  <!-- scripts  ? -->
+</script>
+
+
+<!-- Script Header Template -->
+
+<script type="text/x-jquery-tmpl" id="template-script-heading">
+  <h1>${name}</h1>
+</script>
+
+
+<!-- Script Template -->
+
+<script type="text/x-jquery-tmpl" id="template-script-content">
+  {{if requires}}
+    {{if requires.length > 0}}
+      <h3>Required Files</h3>
+      <ul>
+        {{each(i,r) requires}}
+          ${doc = Rubyfaux.documentation_by_key[r],''}
+          {{if doc}}
+            <li>${doc.name}</li>
+          {{else}}
+            <li>${r}</li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    {{/if}}
+  {{/if}}
+
+  {{if source}}
+    <pre><code>${source}</code></pre>
+  {{else}}
+    Full source code not provided.
+  {{/if}}
+</script>
+
+
+<!-- Script Sidebar -->
+
+<script type="text/x-jquery-tmpl" id="template-script-sidebar">
+  {{tmpl(this) "#template-document-sidebar"}}
+</script>
+
+
+
+
+<!-- Class/Module Header Template -->
+
+<script type="text/x-jquery-tmpl" id="template-class-heading">
+  <h1>${name}</h1>
+</script>
+
+
+<!-- Class/Module Template -->
+
+<script type="text/x-jquery-tmpl" id="template-class-content">
+  <div class="description">
+    {{if !/^\s*[=#]/.test(comment)}}
+      <h1>${name}</h1>
+    {{/if}}
+    {{html Rubyfaux.markup(comment,format)}}
+  </div>
+
+  <!-- includes -->
+  {{if includes.length > 0}}
+    <h3>Inclusions</h3>
+    <ul class="reference-list">
+      {{each(i,m) includes}}
+        <li class="h">
+          ${doc = Rubyfaux.documentation_by_key[m],''}
+          {{if doc}}
+            <a href="#${doc.id}" class="term">${doc.path}</a>
+          {{else}}
+            <span class="term">${m}</span>
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+
+  <!-- extensions -->
+  {{if extensions.length > 0}}
+    <h3>Extensions</h3>
+    <ul class="reference-list">
+      {{each(i,m) extensions}}
+        <li class="h">
+          ${doc = Rubyfaux.documentation_by_key[m],''}
+          {{if doc}}
+            <a href="#${doc.id}" class="term">${doc.path}</a>
+          {{else}}
+            <span class="term">${m}</span>
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+
+  <!-- classes and modules -->
+  {{if (classes.length > 0 || modules.length > 0)}}
+  <h3>Classes and Modules</h3>
+  <ul>
+    {{each(i,c) modules.concat(classes).sort(Rubyfaux.compareNames)}}
+      ${doc = Rubyfaux.documentation_by_key[c],''}
+      <li>
+        <a href="#${doc.id}" class="term">${doc.path}</a>
+        {{if doc['!']=='module'}}
+         <sup class="type">M</sup>
+        {{/if}}
+      </li>
+    {{/each}}
+  </ul>
+  {{/if}}
+
+  <!-- constants -->
+  {{if constants.length > 0}}
+  <h3>Constants</h3>
+  <ul class="reference-list">
+    {{each(i,c) constants}}
+      ${doc = Rubyfaux.documentation_by_key[c],''}
+      <li>
+        <div>
+          <span class="term">${doc.name}</td>
+          =
+          <span>${doc.value}</span>
+        </div>   
+        {{if doc.comment}}
+          <div>
+            ${doc.comment}
+          </div>
+        {{/if}}
+      </li>
+    {{/each}}
+  </ul>
+  {{/if}}
+
+  <!-- attributes -->
+  {{if accessors.length > 0}}
+    <h3>Attributes</h3>
+    <ul class="reference-list">
+    {{each(i,a) accessors}}
+      <li>
+        ${docr = Rubyfaux.documentation_by_key[a],''}
+        ${docw = Rubyfaux.documentation_by_key[a+'='],''}
+        <!-- ${a = docr.declarations.contains('accessor'),''}
+             ${r = docr.declarations.contains('reader'),''}
+           ${w = docr.declarations.contains('writer'),''}
+        -->
+        <div class='term'>
+          ${docr.name}
+          <sup class='attr-rw'>
+            {{if docr}}R{{/if}} {{if docw}}W{{/if}}
+          </sup>
+        </div>
+        <div class='attr-desc'>
+          ${docr.comment}
+        </div>
+      </li>
+    {{/each}}
+    </ul>
+  {{/if}}
+
+  <!-- methods -->
+  {{if methods.length > 0}}
+    ${divy  = Rubyfaux.divy_methods(methods),''}
+    ${scope = ['class','instance'],''}
+    ${sight = ['public','protected','private'],''}
+
+    {{each(i,s) scope}}
+      {{each(j,v) sight}}
+        {{if divy[s][v].length > 0}}
+          <h3>${v.capitalize()} ${s.capitalize()} methods</h3>
+          <ul class="reference-list">
+          {{each(k,m) divy[s][v]}}
+            {{tmpl(m) "#template-method"}}
+          {{/each}}
+          </ul>
+        {{/if}}
+      {{/each}}
+    {{/each}}
+  {{/if}}
+</script>
+
+
+<!-- Method Template -->
+
+<script type="text/x-jquery-tmpl" id="template-method">
+  <li id="${id}">
+    <div class="source-link" style="float: right;">
+      <a id="${id}-link" name="${id}-link" onclick="$('#source-${id}').toggle();">
+       <img src="assets/images/rb.png" alt="[+]">
+      </a>
+      <!--
+          if markup =~ /File\s(\S+), line (\d+)/
+              path = $1
+              line = $2.to_i
+          end
+          github = github_url(path)
+          if github
+      | <a href="<%= "#{github}#L#{line}" %>" target="_blank" class="github_url">on GitHub</a>
+      -->
+    </div>
+
+    {{if interfaces.length > 0}}
+      {{each(i,f) interfaces}}
+        <span class="term">${f.signature}</span><br/>
+      {{/each}}
+    {{else}}
+      <span class="term">${name}</span>
+    {{/if}}
+
+    {{if source}}
+      <div id="source-${id}" style="display: none;">
+        <pre class="code"><code>${source}</code></pre>
+      </div>
+    {{/if}}
+
+    {{if comment}}
+      {{html Rubyfaux.markup(comment)}}
+    {{/if}}
+
+    {{if aliases.length > 0}}
+      <div class="aka">
+        This method is also aliased as
+        {{each(i,aka) aliases}}
+          ${doc = Rubyfaux.documentation_by_key[aka], ''}
+          {{if doc}}
+            <a href="${Rubyfaux.method_href(doc)}">${doc.name}</a> &nbsp;
+          {{else}}
+            ${aka}
+          {{/if}}
+        {{/each}}
+      </div>
+    {{/if}}
+  </li>
+
+</script>
+
+
+<!-- Class/Module Sidebar Template -->
+
+<script type="text/x-jquery-tmpl" id="template-class-sidebar">
+
+  <div class="navigation" style="background-color: transparent;">
+    <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+    <fieldset>
+      <legend>Quicksearch</legend>
+      <input type="text" name="quicksearch" value="" class="quicksearch-field" style="width: 95%;" />
+    </fieldset>
+    </form>
+  </div>
+
+  <br/><br/>
+
+  {{if namespace}}
+  <div class="navigation">
+    <h3>Parent</h3>
+    <ul>
+    <li>
+      ${doc = Rubyfaux.documentation_by_key[namespace],''}
+      {{if doc}}
+        <a href="#${doc.id}">${doc.path}</a>
+      {{else}}
+        <span>${namespace}</span>
+      {{/if}}
+    </li>
+    </ul>
+  </div>
+  {{/if}}
+
+  <!-- SUPERCLASS -->
+  {{if superclass}}
+  <div class="navigation">
+    <h3>Superclass</h3>
+    <ul>
+    <li>
+      ${doc = Rubyfaux.documentation_by_key[superclass],''}
+      {{if doc}}
+        <a href="#${doc.id}">${doc.path}</a>
+      {{else}}
+        <span>${superclass}</span>
+      {{/if}}
+    </li>
+    </ul>
+  </div>
+  {{/if}}
+
+  <!-- INCLUDES -->
+  {{if includes.length > 0}}
+  <div class="navigation">
+    <h3>Includes</h3>
+    <ul>
+      {{each(i,inc) includes}}
+      <li>
+        ${doc = Rubyfaux.documentation_by_key[inc],''}
+        {{if doc}}
+          <a href="#${doc.id}">${doc.path}</a>
+        {{else}}
+          <span>${inc}</span>
+        {{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+
+  <!-- MODULES -->
+  {{if modules.length > 0}}
+  <div class="navigation">
+    <h3>Modules</h3>
+    <ul>
+      {{each(i,m) modules.sort(Rubyfaux.compareNames)}}
+        ${doc = Rubyfaux.documentation_by_key[m],''}
+        <li>
+          <a href="#${doc.id}">${doc.path}</a>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+
+  <!-- CLASSES -->
+  {{if classes.length > 0}}
+  <div class="navigation">
+    <h3>Classes</h3>
+    <ul>
+      {{each(i,m) classes.sort(Rubyfaux.compareNames)}}
+        ${doc = Rubyfaux.documentation_by_key[m],''}
+        <li>
+          <a href="#${doc.id}">${doc.path}</a>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+
+  <!-- METHOD LIST -->
+  {{if methods.length > 0}}
+  <div class="navigation">
+    <h3>Methods</h3>
+    <ul class="menu quicksearch-target">
+      {{each(i,m) methods}}
+        ${doc = Rubyfaux.documentation_by_key[m],''}
+        <li><a href="${Rubyfaux.method_href(doc)}">${doc.name}</a></li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+
+  <!-- IN FILES -->
+  <div class="navigation">
+    <h3>In Files</h3>
+    <ul>
+    {{each(i,f) files}}
+      ${doc = Rubyfaux.documentation_by_key[f],''}
+      <li class="file">
+        <a href="#${doc.id}" title="${doc.name}">
+          ${doc.path}
+        </a>
+      </li>
+    {{/each}}
+    </ul>
+  </div>
+
+</script>
+
+
+<!-- Copyright Template -->
+
+<script type="text/x-jquery-tmpl" id="template-copyright">
+<!--
+        <p>Content available in <a href="http://www.ruby-lang.org/en/">English</a>, <a href="http://www.ruby-lang.org/fr/">French</a>, <a href="http://www.ruby-lang.org/ja/">Japanese</a>, <a href="http://www.ruby-lang.org/ko/">Korean</a>, <a href="http://www.ruby-lang.org/pl/">Polish</a>, <a href="http://www.ruby-lang.org/es/">Spanish</a>, <a href="http://www.ruby-lang.org/pt/">Portuguese</a>, <a href="http://www.ruby-lang.org/zh_cn/">Simplified Chinese</a>, <a href="http://www.ruby-lang.org/zh_TW/">Traditional Chinese</a>, <a href="http://www.ruby-lang.org/id/">Bahasa Indonesia</a>, <a href="http://www.ruby-lang.org/de/">German</a>, <a href="http://www.ruby-lang.org/it/">Italian</a> and <a href="http://www.ruby-lang.org/bg/">Bulgarian</a>.</p>
+-->
+        <p>
+          <span id="debugging-toggle">
+            <img src="assets/images/bug.png" alt="[debug]" title="Debug Toggle" height="16" width="16" align="right" style="margin-left: 6px;"
+                 onclick="Rubyfaux.debugToggle();" />
+          </span>
+          <a href="http://validator.w3.org/check/referer"><img src="assets/images/check.png" alt="[validate]" title="Validate" height="16" width="16" align="right" style="margin-left: 6px;" /></a>
+
+          This website is made with 
+          <a href="http://rubyworks.github.com/shomen">Shomen</a> and
+          <a href="http://rubyworks.github.com/rubyfaux">RubyFaux</a> v${Rubyfaux.version}.
+<!--
+          Please contact our <a href="${email} %>">webmaster</a> for questions or comments concerning this website.
+-->
+        </p>
+</script>
+
+
+<!-- Ruby/Google Searchbox Template -->
+
+<script type="text/x-jquery-tmpl" id="template-searchbox">
+  <form id="search-form" action="http://www.google.com/cse">
+  <table class="fieldset">
+    <tbody><tr>
+      <td>
+        <input class="field" name="q" size="31" style="background: white url(http://www.google.com/coop/intl/en/images/google_custom_search_watermark.gif) no-repeat scroll left center; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" onfocus="this.style.background='white'" onblur="if (/^\s*$/.test(this.value)) this.style.background='white url(http://www.google.com/coop/intl/en/images/google_custom_search_watermark.gif) left no-repeat'" type="text">
+      </td>
+      <td>
+        <input name="cx" value="013598269713424429640:g5orptiw95w" type="hidden">
+        <input name="ie" value="UTF-8" type="hidden">
+        <input class="button" name="sa" value="Search" type="submit">
+      </td>
+    </tr>
+  </tbody></table>
+  </form>
+</script>
+
+</body>
+</html>
+
