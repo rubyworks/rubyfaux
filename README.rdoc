@@ -1,6 +1,6 @@
 = Rubyfaux
 
-{Website}[http://rubyworks.github.com/rubyfaux] |
+{Website}[http://rubyworks.github.com/rubyfaux] &middot;
 {Development}[http://github.com/rubyworks/rubyfaux]
 
 
