@@ -46,7 +46,7 @@ Rubyfaux = {
     var doc_url = urlVars['doc'] || 'doc.json';
     var doc_id  = urlVars['id']
 
-    $.getJSON(doc_url+'?callback=?', function(data) {
+    $.getJSON(doc_url, function(data) {
 
       // the url is good
       Rubyfaux.doc_url = doc_url;
