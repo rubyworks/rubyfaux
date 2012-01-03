@@ -225,10 +225,14 @@
     {{/if}}
   {{/if}}
 
+  {{if uri}}
+    <div class="scm-uri">
+      <a target="_blank" href="${uri}">Click here to view source code via repository</a>.
+    </div>
+  {{/if}}
+
   {{if source}}
     <pre><code>${source}</code></pre>
-  {{else}}
-    Full source code not provided.
   {{/if}}
 </script>
 
