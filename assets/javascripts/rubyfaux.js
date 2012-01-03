@@ -148,7 +148,11 @@ Rubyfaux = {
   //
   method_href: function(method) {
     var ns = Rubyfaux.documentation_by_key[method.namespace];
-    return(Rubyfaux.href(ns.id, method.id));
+    if (ns == undefined) {
+      console.debug('Cannot find method: ' + method.id);
+    } else {
+      return(Rubyfaux.href(ns.id, method.id));
+    };
   },
 
   //
