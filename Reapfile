@@ -6,17 +6,40 @@
 # The publish task uses the detroit-github plugin
 # from the Detroit project.
 
-trip 'publish' do
+desc 'prepare'
+task 'prepare' do
   require 'detroit'
   require 'detroit-github'
 
   github = Detroit::GitHub.new(
-    :sitemap => {
-      'index.html' => 'index.html',
-      'doc.json'   => 'doc.json',
-      'assets'     => 'assets'
-    }
+    :gh_pages => 'website'
   )
-  github.publish
+
+  github.prepare
+end
+
+desc 'publish'
+task 'publish' do
+  mkdir_p 'website'
+  cp   'index.html', 'website/'
+  cp   'doc.json',   'website/'
+  cp_r 'assets',     'website/'
+
+  github = Detroit::GitHub.new(
+    :gh_pages => 'website'
+  )
+
+  github.publish 
+end
+
+desc 'publish to heroku'
+task 'heroku' do
+  mkdir_p 'heroku'
+  cp   'index.html', 'heroku/'
+  cp   'doc.json',   'heroku/'
+  cp_r 'assets',     'heroku/'
+  cd 'heroku' do
+    sh 'git push orgin master'
+  end
 end
 
