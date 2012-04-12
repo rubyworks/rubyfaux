@@ -89,6 +89,7 @@ Rubyfaux = {
 
       Rubyfaux.documentation['all']     = Rubyfaux.documentation['all'].sort(Rubyfaux.compareNames);
       Rubyfaux.documentation['methods'] = Rubyfaux.documentation['methods'].sort(Rubyfaux.compareNames);
+      Rubyfaux.documentation['classes'] = Rubyfaux.documentation['classes'].sort(Rubyfaux.comparePaths);
 
       $("#template-title").tmpl(Rubyfaux.metadata).appendTo("#title");
       $('#template-navigation').tmpl({}).appendTo('#nav');
@@ -181,6 +182,13 @@ Rubyfaux = {
   compareNames: function(a, b){
     if (a.name < b.name) {return -1}
     if (a.name > b.name) {return 1}
+    return 0;
+  },
+
+  //
+  comparePaths: function(a, b){
+    if (a.path < b.path) {return -1}
+    if (a.path > b.path) {return 1}
     return 0;
   },
 
