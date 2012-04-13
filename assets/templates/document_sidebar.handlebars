@@ -1,0 +1,60 @@
+<!-- Document Sidebar Template -->
+<!-- @scope Rubyfaux.documentation -->
+
+<!-- Quicksearch -->
+<div class="navigation" style="background-color: transparent;">
+  <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+  <fieldset>
+    <legend>Quicksearch</legend>
+    <input type="text" name="quicksearch" value="" class="quicksearch-field" style="width: 95%;"/>
+  </fieldset>
+  </form>
+</div>
+
+<hr class="hidden-modern" /><br/><br/>
+
+<!-- documents -->
+{{#if documents.length}}
+<div class="navigation">
+  <h3 class="section-header">Document Index</h3>
+  <ul class="quicksearch-target">
+  {{#documents}}
+    <li class="file"><a href="#{{id}}">{{name}}</a></li>
+  {{/documents}}
+  </ul>
+</div>
+{{/if}}
+
+<!-- classes/modules -->
+{{#if classes.length}}
+<div class="navigation">
+  <h3 class="section-header">Class Index</h3>
+  <ul class="quicksearch-target">
+  {{#classes}}
+    <li class="{{[!]}}"><a href="#{{id}}">{{path}}</a></li>
+  {{/classes}}
+  </ul>
+  <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+</div>
+{{/if}}
+
+<!-- methods -->
+{{#if methods.length}}
+<div class="navigation">
+  <h3 class="section-header">Method Index</h3>
+  <ul class="quicksearch-target">
+    {{#methods}}
+      <li class="method" style="clear: both; overflow:hidden; white-space:nowrap;">
+        <a href="{{method_href}" title="{{namespace}}">
+          {{name}} <!-- pretty name ? -->
+        </a>
+        &nbsp;<span style="font-size: 80%; color: #777;">{{namespace}}</span>
+      </li>
+    {{/methods}}
+  </ul>
+</div>
+{{/if}}
+
+<!-- scripts  ? -->
+
+

@@ -1,0 +1,124 @@
+<!-- Class/Module Sidebar Template -->
+
+<div class="navigation" style="background-color: transparent;">
+  <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+  <fieldset>
+    <legend>Quicksearch</legend>
+    <input type="text" name="quicksearch" value="" class="quicksearch-field" style="width: 95%;" />
+  </fieldset>
+  </form>
+</div>
+
+<br/><br/>
+
+{{#if namespace}}
+<div class="navigation">
+  <h3>Parent</h3>
+  <ul>
+  <li>
+    {{#with_doc namespace}}
+      {{if id}}
+        <a href="#{{id}}">{{path}}</a>
+      {{else}}
+        <span>{{namespace}}</span>
+      {{/if}}
+    {{/with_doc}}
+  </li>
+  </ul>
+</div>
+{{/if}}
+
+<!-- SUPERCLASS -->
+{{if superclass}}
+<div class="navigation">
+  <h3>Superclass</h3>
+  <ul>
+  <li>
+    {{#with_doc superclass}}
+      {{if id}}
+        <a href="#{{id}}">{{path}}</a>
+      {{else}}
+        <span>${superclass}</span>
+      {{/if}}
+    {{/with_doc}}
+  </li>
+  </ul>
+</div>
+{{/if}}
+
+<!-- INCLUDES -->
+{{if includes.length}}
+<div class="navigation">
+  <h3>Includes</h3>
+  <ul>
+    {{#doc includes}}
+    <li>
+      {{if id}}
+        <a href="#{{id}}">{{path}}</a>
+      {{else}}
+        <span>{{this}}</span>
+      {{/if}}
+    </li>
+    {{/doc}}
+  </ul>
+</div>
+{{/if}}
+
+<!-- MODULES -->
+{{if modules.length}}
+<div class="navigation">
+  <h3>Modules</h3>
+  <ul>
+    {{#doc modules}}
+      {{#if id}}
+        <li><a href="#{{id}}">{{path}}</a></li>
+      {{else}}
+        <li><a href="">{{this}}</a></li>
+      {{/if}}
+    {{/doc}}
+  </ul>
+</div>
+{{/if}}
+
+<!-- CLASSES -->
+{{if classes.length}}
+<div class="navigation">
+  <h3>Classes</h3>
+  <ul>
+    {{#doc classes}}
+      {{#if id}}
+        <li><a href="#{{id}}">{{path}}</a></li>
+      {{else}}
+        <li><a href="">{{this}}</a></li>
+      {{/if}}
+    {{/each}}
+  </ul>
+</div>
+{{/if}}
+
+<!-- METHOD LIST -->
+{{if methods.length}}
+<div class="navigation">
+  <h3>Methods</h3>
+  <ul class="menu quicksearch-target">
+    {{#doc methods}}
+      <li><a href="{{calc_method_href}}">{{name}}</a></li>
+    {{/doc}}
+  </ul>
+</div>
+{{/if}}
+
+<!-- IN FILES -->
+<div class="navigation">
+  <h3>In Files</h3>
+  <ul>
+  {{#doc files}}
+    <li class="file">
+      <a href="#{{id}}" title="{{name}}">
+        {{path}}
+      </a>
+    </li>
+  {{/doc}}
+  </ul>
+</div>
+

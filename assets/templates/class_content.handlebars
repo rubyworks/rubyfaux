@@ -1,0 +1,118 @@
+<!-- Class/Module Template -->
+
+<div class="description">
+  {{#unless_header}}
+    <h1>{{name}}</h1>
+  {{/unless_header}}
+  {{markup comment format}}
+</div>
+
+<!-- includes -->
+{{#if includes.length}}
+  <h3>Inclusions</h3>
+  <ul class="reference-list">
+    {{#doc includes}}
+      <li class="h">
+        {{#if id}}
+          <a href="#{{id}}" class="term">{{path}}</a>
+        {{else}}
+          <span class="term">{{this}}</span>
+        {{/if}}
+      </li>
+    {{/doc}}
+  </ul>
+{{/if}}
+
+<!-- extensions -->
+{{#if extensions.length}}
+  <h3>Extensions</h3>
+  <ul class="reference-list">
+    {{#doc extensions}}
+      <li class="h">
+        {{#if id}}
+          <a href="#{{id}}" class="term">{{path}}</a>
+        {{else}}
+          <span class="term">{{this}}</span>
+        {{/if}}
+      </li>
+    {{/doc}}
+  </ul>
+{{/if}}
+
+<!-- classes and modules -->
+{{#if_namespace}}
+<h3>Classes and Modules</h3>
+<ul>
+  {{#namespaces}}
+    <li>
+      <a href="#{{id}}" class="term">{{path}}</a>
+      {{#if_type "module"}}
+       <sup class="type">M</sup>
+      {{/if_type}}
+    </li>
+  {{/namespaces}}
+</ul>
+{{/if_namespace}}
+
+<!-- constants -->
+{{#if constants.length}}
+<h3>Constants</h3>
+<ul class="reference-list">
+  {{#doc constants}}
+    <li>
+      <div>
+        <span class="term">{{name}}</span> = <span>{{value}}</span>
+      </div>   
+      {{#if comment}}
+        <div>{{comment}}</div>
+      {{/if}}
+    </li>
+  {{/doc}}
+</ul>
+{{/if}}
+
+<!-- @todo Should we look for a method with the accessors name + '=' -->
+
+<!-- attributes -->
+{{#if accessors.length}}
+  <h3>Attributes</h3>
+  <ul class="reference-list">
+  {{#doc accessors}}
+    <li>
+      <div class='term'>
+        {{name}}
+        <sup class='attr-rw'>
+          {{#declares "accessor"}}A{{/declares}}
+          {{#declares "reader"}}R{{/declares}}
+          {{#declares "writer"}}W{{/declares}}
+        </sup>
+      </div>
+      <div class='attr-desc'>
+        {{comment}}
+      </div>
+    </li>
+  {{/accessors}}
+  </ul>
+{{/if}}
+
+<!-- methods -->
+{{#if methods.length}}
+  ${divy  = Rubyfaux.divy_methods(methods),''}
+  ${scope = ['class','instance'],''}
+  ${sight = ['public','protected','private'],''}
+
+  {{each(i,s) scope}}
+    {{each(j,v) sight}}
+      {{if divy[s][v].length > 0}}
+        <h3>${v.capitalize()} ${s.capitalize()} methods</h3>
+        <ul class="reference-list">
+        {{each(k,m) divy[s][v]}}
+          {{tmpl(m) "#template-method"}}
+        {{/each}}
+        </ul>
+      {{/if}}
+    {{/each}}
+  {{/each}}
+{{/if}}
+
+

@@ -1,0 +1,25 @@
+<!-- Script Template -->
+
+{{#if requires}}
+  <h3>Required Files</h3>
+  <ul>
+    {{#doc requires}}
+      {{if id}}
+        <li>{{name}}</li>
+      {{else}}
+        <li>{{this}}</li>
+      {{/if}}
+    {{/doc}}
+  </ul>
+{{/if}}
+
+{{#if uri}}
+  <div class="scm-uri">
+    <a target="_blank" href="{{uri}}">Click here to view source code via repository</a>.
+  </div>
+{{/if}}
+
+{{#if source}}
+  <pre><code>{{source}}</code></pre>
+{{/if}}
+

@@ -1,0 +1,50 @@
+<!-- Method Template -->
+
+<li id="{{id}}">
+  <div class="source-link" style="float: right;">
+    <a id="{{id}}-link" name="{{id}}-link" onclick="$('#source-{{id}}').toggle();">
+     <img src="assets/images/rb.png" alt="[+]">
+    </a>
+    <!--
+        if markup =~ /File\s(\S+), line (\d+)/
+            path = $1
+            line = $2.to_i
+        end
+        github = github_url(path)
+        if github
+    | <a href="<%= "#{github}#L#{line}" %>" target="_blank" class="github_url">on GitHub</a>
+    -->
+  </div>
+
+  {{if interfaces.length}}
+    {{#interfaces}}
+      <span class="term">{{signature}}</span><br/>
+    {{/interfaces}}
+  {{else}}
+    <span class="term">{{name}}</span>
+  {{/if}}
+
+  {{if source}}
+    <div id="source-{{id}}" style="display: none;">
+      <pre class="code"><code>{{source}}</code></pre>
+    </div>
+  {{/if}}
+
+  {{if comment}}
+    {{markup comment format}}
+  {{/if}}
+
+  {{if aliases.length}}
+    <div class="aka">
+      This method is also aliased as
+      {{#doc aliases}}
+        {{if doc}}
+          <a href="{{calc_method_href}}">{{name}}</a> &nbsp;
+        {{else}}
+          {{this}}
+        {{/if}}
+      {{/doc}}
+    </div>
+  {{/if}}
+</li>
+

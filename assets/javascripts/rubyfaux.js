@@ -91,10 +91,15 @@ Rubyfaux = {
       Rubyfaux.documentation['methods'] = Rubyfaux.documentation['methods'].sort(Rubyfaux.compareNames);
       Rubyfaux.documentation['classes'] = Rubyfaux.documentation['classes'].sort(Rubyfaux.comparePaths);
 
-      $("#template-title").tmpl(Rubyfaux.metadata).appendTo("#title");
-      $('#template-navigation').tmpl({}).appendTo('#nav');
-      $("#template-copyright").tmpl(Rubyfaux.metadata).appendTo("#copyright");
-      $('#template-searchbox').tmpl({}).appendTo('#searchbox');
+      //$("#template-title").tmpl(Rubyfaux.metadata).appendTo("#title");
+      //$('#template-navigation').tmpl({}).appendTo('#nav');
+      //$("#template-copyright").tmpl(Rubyfaux.metadata).appendTo("#copyright");
+      //$('#template-searchbox').tmpl({}).appendTo('#searchbox');
+
+      $("#title").append(Rubyfaux.template("title", Rubyfaux.metadata);
+      $('#nav').append(Rubyfaux.template("navigation", Rubyfaux.metadata);
+      $('#copyright').append(Rubyfaux.template("copyright"), Rubyfaux.metadata);
+      $('#searchbox').append(Rubyfaux.template("searchbox", {});
 
       // Routing
       $.history.init(function(hash){
@@ -215,9 +220,9 @@ Rubyfaux = {
     if (doc != null) {
       var type = doc['!'];
       if(type == 'module'){ type = 'class' };
-      $('#heading').empty().append($('#template-' + type + '-heading').tmpl(doc));
-      $('#content').empty().append($('#template-' + type + '-content').tmpl(doc));
-      $('#sidebar').empty().append($('#template-' + type + '-sidebar').tmpl(doc));
+      $('#heading').empty().append(Rubyfaux.template(type + '-heading', doc));
+      $('#content').empty().append(Rubyfaux.template(type + '-content', doc));
+      $('#sidebar').empty().append(Rubyfaux.template(type + '-sidebar', doc));
       $('#content').find('pre code').each(function(i, e){hljs.highlightBlock(e, '  ')});
       if(anchor != undefined) {
         $('html, body').animate({ scrollTop: $('#'+anchor).offset().top }, 500);
@@ -319,6 +324,11 @@ Rubyfaux = {
   toggleSource: function(id) {
     $(id).toogle();
   },
+
+  //
+  template: function(name, data) {
+    return Handlebars.templates[name](data);
+  }
 
 }
 

@@ -1,0 +1,10 @@
+<!-- Navigation Template -->
+<!-- @scope Rubyfaux.metadata -->
+<div class="site-links">
+  <span><a href="#">Main</a></span><span class="separator"> | </span>
+  {{#resources}}
+    <a href="${uri}">{{capitalize name}}</a> <span class="separator"> | </span>
+  {{/resources}}
+  <a href="http://www.ruby-lang.org/en/about/">About Ruby</a>
+</div>
+
