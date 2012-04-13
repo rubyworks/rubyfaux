@@ -194,24 +194,28 @@ Handlebars.registerHelper('methods_categorized', function(block) {
   var scope = ['class','instance'];
   var sight = ['public','protected','private'];
   var out = '';
+  var scope_methods;
+  var sight_methods;
 
   if (this.methods.length > 0) {
-    for (i in scope) {
-      for (j in sight) {
-        var combination = (meths[scope[i]] || {})[sight[j]] || {};
-        if (combination.length > 0) {
-          combination = combination.sort(Rubyfaux.compareNames);
+    for (var i=0; i < scope.length; ++i) {
+      scope_methods = meths[scope[i]];
+      if (scope_methods == undefined) { continue };
+      for (var j=0; j < sight.length; ++j) {
+        sight_methods = scope_methods[sight[j]];
+        if (sight_methods == undefined) { continue };
+        if (sight_methods.length > 0) {
+          sight_methods = sight_methods.sort(Rubyfaux.compareNames);
           out = out + "<h3>" + sight[j].capitalize() + " " + scope[i].capitalize() + " Methods</h3>\n";
           out = out + '<ul class="reference-list">' + "\n";
-          for (k in combination) {
-            out = out + block(combination[k]);
+          for (k in sight_methods) {
+            out = out + block(sight_methods[k]);
           };
           out = out + "\n</ul>";
         };
       };
     };    
   };
-
   return out;
 });
 

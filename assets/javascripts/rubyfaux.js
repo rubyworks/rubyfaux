@@ -256,15 +256,15 @@ Rubyfaux = {
     $.each(methods, function(i, x) {
       var doc = Rubyfaux.documentation_by_key[x];
 
-      if (doc.declarations.contains('class')) {
+      if (doc.declarations.indexOf('class') != -1) {
         s = 'class'
       } else {
         s = 'instance'
       };
 
-      if (doc.declarations.contains('private')) {
+      if (doc.declarations.indexOf('private') != -1) {
         v = 'private';
-      } else if (doc.declarations.contains('protected')) {
+      } else if (doc.declarations.indexOf('protected') != -1) {
         v = 'protected';
       } else {
         v = 'public';
@@ -354,17 +354,6 @@ String.prototype.escapeHTML = function () {
   );                                          
 };
 */
-
-//
-Array.prototype.contains = function(obj) {
-    var i = this.length;
-    while (i--) {
-        if (this[i] == obj) {
-            return true;
-        }
-    }
-    return false;
-}
 
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
