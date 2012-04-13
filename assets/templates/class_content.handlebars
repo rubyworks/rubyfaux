@@ -91,28 +91,12 @@
         {{comment}}
       </div>
     </li>
-  {{/accessors}}
+  {{/doc}}
   </ul>
 {{/if}}
 
 <!-- methods -->
-{{#if methods.length}}
-  ${divy  = Rubyfaux.divy_methods(methods),''}
-  ${scope = ['class','instance'],''}
-  ${sight = ['public','protected','private'],''}
-
-  {{each(i,s) scope}}
-    {{each(j,v) sight}}
-      {{if divy[s][v].length > 0}}
-        <h3>${v.capitalize()} ${s.capitalize()} methods</h3>
-        <ul class="reference-list">
-        {{each(k,m) divy[s][v]}}
-          {{tmpl(m) "#template-method"}}
-        {{/each}}
-        </ul>
-      {{/if}}
-    {{/each}}
-  {{/each}}
-{{/if}}
-
+{{#methods_categorized}}
+  {{> method}}
+{{/methods_categorized}}
 

@@ -16,7 +16,7 @@
     -->
   </div>
 
-  {{if interfaces.length}}
+  {{#if interfaces.length}}
     {{#interfaces}}
       <span class="term">{{signature}}</span><br/>
     {{/interfaces}}
@@ -24,21 +24,21 @@
     <span class="term">{{name}}</span>
   {{/if}}
 
-  {{if source}}
+  {{#if source}}
     <div id="source-{{id}}" style="display: none;">
       <pre class="code"><code>{{source}}</code></pre>
     </div>
   {{/if}}
 
-  {{if comment}}
+  {{#if comment}}
     {{markup comment format}}
   {{/if}}
 
-  {{if aliases.length}}
+  {{#if aliases.length}}
     <div class="aka">
       This method is also aliased as
       {{#doc aliases}}
-        {{if doc}}
+        {{#if id}}
           <a href="{{calc_method_href}}">{{name}}</a> &nbsp;
         {{else}}
           {{this}}

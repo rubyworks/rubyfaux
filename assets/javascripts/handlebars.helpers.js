@@ -12,13 +12,18 @@ Handlebars.registerHelper('markup', function(text, format) {
 //
 // Capitalize word.
 //
-Handlebars.registerHelper('capitalize', function(word) {
-  return word.capitalize();
+Handlebars.registerHelper('rubyfaux_version', function() {
+  return Rubyfaux.version;
 });
 
-
-
-
+//
+// Capitalize word.
+//
+Handlebars.registerHelper('capitalize', function(word) {
+  if (word != undefined) {
+    return word.capitalize();
+  };
+});
 
 //
 // Calcuate the documentation `id` given a `path`.
@@ -126,11 +131,10 @@ Handlebars.registerHelper('doc', function(list, options) {
   var doc;
   var out = '';
 
-  modules.sort(Rubyfaux.compareNames)
+  //modules.sort(Rubyfaux.compareNames)
 
   for(var i=0, l=list.length; i<l; i++) {
     doc = Rubyfaux.documentation_by_key[list[i]];
-alert(doc);
     if (doc != null) {
       out = out + options.fn(doc);
     } else {
@@ -187,10 +191,25 @@ Handlebars.registerHelper('writer', function(options) {
 //
 Handlebars.registerHelper('methods_categorized', function(block) {
   var meths = Rubyfaux.divy_methods(this.methods);
+  var scope = ['class','instance'];
+  var sight = ['public','protected','private'];
   var out = '';
 
   if (this.methods.length > 0) {
-    out = block(meths);
+    for (i in scope) {
+      for (j in sight) {
+        var combination = (meths[scope[i]] || {})[sight[j]] || {};
+        if (combination.length > 0) {
+          combination = combination.sort(Rubyfaux.compareNames);
+          out = out + "<h3>" + sight[j].capitalize() + " " + scope[i].capitalize() + " Methods</h3>\n";
+          out = out + '<ul class="reference-list">' + "\n";
+          for (k in combination) {
+            out = out + block(combination[k]);
+          };
+          out = out + "\n</ul>";
+        };
+      };
+    };    
   };
 
   return out;

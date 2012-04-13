@@ -17,7 +17,7 @@
   <ul>
   <li>
     {{#with_doc namespace}}
-      {{if id}}
+      {{#if id}}
         <a href="#{{id}}">{{path}}</a>
       {{else}}
         <span>{{namespace}}</span>
@@ -29,16 +29,16 @@
 {{/if}}
 
 <!-- SUPERCLASS -->
-{{if superclass}}
+{{#if superclass}}
 <div class="navigation">
   <h3>Superclass</h3>
   <ul>
   <li>
     {{#with_doc superclass}}
-      {{if id}}
+      {{#if id}}
         <a href="#{{id}}">{{path}}</a>
       {{else}}
-        <span>${superclass}</span>
+        <span>{{superclass}}</span>
       {{/if}}
     {{/with_doc}}
   </li>
@@ -47,13 +47,13 @@
 {{/if}}
 
 <!-- INCLUDES -->
-{{if includes.length}}
+{{#if includes.length}}
 <div class="navigation">
   <h3>Includes</h3>
   <ul>
     {{#doc includes}}
     <li>
-      {{if id}}
+      {{#if id}}
         <a href="#{{id}}">{{path}}</a>
       {{else}}
         <span>{{this}}</span>
@@ -65,7 +65,7 @@
 {{/if}}
 
 <!-- MODULES -->
-{{if modules.length}}
+{{#if modules.length}}
 <div class="navigation">
   <h3>Modules</h3>
   <ul>
@@ -81,7 +81,7 @@
 {{/if}}
 
 <!-- CLASSES -->
-{{if classes.length}}
+{{#if classes.length}}
 <div class="navigation">
   <h3>Classes</h3>
   <ul>
@@ -91,13 +91,13 @@
       {{else}}
         <li><a href="">{{this}}</a></li>
       {{/if}}
-    {{/each}}
+    {{/doc}}
   </ul>
 </div>
 {{/if}}
 
 <!-- METHOD LIST -->
-{{if methods.length}}
+{{#if methods.length}}
 <div class="navigation">
   <h3>Methods</h3>
   <ul class="menu quicksearch-target">

@@ -96,10 +96,10 @@ Rubyfaux = {
       //$("#template-copyright").tmpl(Rubyfaux.metadata).appendTo("#copyright");
       //$('#template-searchbox').tmpl({}).appendTo('#searchbox');
 
-      $("#title").append(Rubyfaux.template("title", Rubyfaux.metadata);
-      $('#nav').append(Rubyfaux.template("navigation", Rubyfaux.metadata);
+      $("#title").append(Rubyfaux.template("title", Rubyfaux.metadata));
+      $('#nav').append(Rubyfaux.template("navigation", Rubyfaux.metadata));
       $('#copyright').append(Rubyfaux.template("copyright"), Rubyfaux.metadata);
-      $('#searchbox').append(Rubyfaux.template("searchbox", {});
+      $('#searchbox').append(Rubyfaux.template("searchbox", {}));
 
       // Routing
       $.history.init(function(hash){
@@ -220,9 +220,15 @@ Rubyfaux = {
     if (doc != null) {
       var type = doc['!'];
       if(type == 'module'){ type = 'class' };
-      $('#heading').empty().append(Rubyfaux.template(type + '-heading', doc));
-      $('#content').empty().append(Rubyfaux.template(type + '-content', doc));
-      $('#sidebar').empty().append(Rubyfaux.template(type + '-sidebar', doc));
+      $('#heading').empty().append(Rubyfaux.template(type + '_heading', doc));
+      $('#content').empty().append(Rubyfaux.template(type + '_content', doc));
+
+      if (type == 'document') {
+        $('#sidebar').empty().append(Rubyfaux.template(type + '_sidebar', Rubyfaux.documentation));
+      } else {
+        $('#sidebar').empty().append(Rubyfaux.template(type + '_sidebar', doc));
+      };
+
       $('#content').find('pre code').each(function(i, e){hljs.highlightBlock(e, '  ')});
       if(anchor != undefined) {
         $('html, body').animate({ scrollTop: $('#'+anchor).offset().top }, 500);
@@ -241,17 +247,21 @@ Rubyfaux = {
   divy_methods: function(methods) {
     var s = 'instance';
     var v = 'public';
+
     var list = {
       'class':    {'public': new Array(), 'protected': new Array(), 'private': new Array()},
       'instance': {'public': new Array(), 'protected': new Array(), 'private': new Array()}
     }
+
     $.each(methods, function(i, x) {
       var doc = Rubyfaux.documentation_by_key[x];
+
       if (doc.declarations.contains('class')) {
         s = 'class'
       } else {
         s = 'instance'
-      }
+      };
+
       if (doc.declarations.contains('private')) {
         v = 'private';
       } else if (doc.declarations.contains('protected')) {
@@ -259,8 +269,10 @@ Rubyfaux = {
       } else {
         v = 'public';
       }
+
       list[s][v].push(doc);
     });
+
     return(list);
   },
 
