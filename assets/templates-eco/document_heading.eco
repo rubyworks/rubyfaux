@@ -1,0 +1,2 @@
+<!-- Document Header Template -->
+<h1><%= name %></h1>

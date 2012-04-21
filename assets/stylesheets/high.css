@@ -195,7 +195,7 @@ fieldset {
 }
 #content {
   margin-right: 239px;
-  padding: 32px;
+  padding: 20px;
   padding-top: 1px;
   line-height: 160%;
 }
@@ -248,26 +248,24 @@ fieldset {
   clear: both;
   margin-top: 1em;
 }
-
 #content pre {
+  color: white;
   overflow: auto;
   letter-spacing: 0;
   font-family: monospace;
-  color: black;
-}
-#content pre {
-  color: white;
   background-color: #eeeeff;
   background-position: top left;
   background-repeat: no-repeat;
-  color: black;
   display: block;
-  width: 98%;
+  width: 99%;
   padding-top: 2px;
+  padding-left: 5px;
 }
 #content pre code {
   color: black;
+  color: white;
   background-color: #eeeeff;
+  background-color: #002233;
   background-position: bottom right;
   background-repeat: no-repeat;
   display: block;
@@ -276,7 +274,9 @@ fieldset {
   font-size: 110%;
   line-height: 135%;
   padding: 1em;
-  text-shadow: 1px 1px 1px #999;
+  /* text-shadow: 1px 1px 1px #999; */
+  border-top-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 #content pre .comment, .ruby-comment, .cmt {
   color: #428bdd;
@@ -441,6 +441,9 @@ fieldset {
   background-repeat: repeat-x;
   padding-bottom: 4px;
   color: #555;
+}
+#sidebar .navigation a {
+  text-decoration: none;
 }
 #sidebar .navigation .more {
   padding-bottom: 8px;

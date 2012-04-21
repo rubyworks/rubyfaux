@@ -6,7 +6,7 @@ ignore 'web'
 # Run thin server to give site a spin.
 #
 desc "start thin server"
-task "server" do
+task "serve" do
   sh "thin start -A file"
 end
 

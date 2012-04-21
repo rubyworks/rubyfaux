@@ -256,7 +256,7 @@ function program24(depth0,data) {
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "name", { hash: {} }); }
   buffer += escapeExpression(stack1) + "\n        <sup class='attr-rw'>\n          ";
-  stack1 = "accessor";
+  stack1 = "kccessor";
   foundHelper = helpers.declares;
   stack2 = foundHelper || depth0.declares;
   tmp1 = self.program(25, program25, data);
@@ -1236,7 +1236,12 @@ templates['navigation'] = template(function (Handlebars,depth0,helpers,partials,
 function program1(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\n    <a href=\"${uri}\">";
+  buffer += "\n    <a href=\"";
+  foundHelper = helpers.uri;
+  stack1 = foundHelper || depth0.uri;
+  if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
+  else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "uri", { hash: {} }); }
+  buffer += escapeExpression(stack1) + "\">";
   foundHelper = helpers.name;
   stack1 = foundHelper || depth0.name;
   foundHelper = helpers.capitalize;
