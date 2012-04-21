@@ -89,11 +89,17 @@ Rubyfaux = {
 
       Rubyfaux.documentation['all']     = Rubyfaux.documentation['all'].sort(Rubyfaux.compareNames);
       Rubyfaux.documentation['methods'] = Rubyfaux.documentation['methods'].sort(Rubyfaux.compareNames);
+      Rubyfaux.documentation['classes'] = Rubyfaux.documentation['classes'].sort(Rubyfaux.comparePaths);
 
-      $("#template-title").tmpl(Rubyfaux.metadata).appendTo("#title");
-      $('#template-navigation').tmpl({}).appendTo('#nav');
-      $("#template-copyright").tmpl(Rubyfaux.metadata).appendTo("#copyright");
-      $('#template-searchbox').tmpl({}).appendTo('#searchbox');
+      //$("#template-title").tmpl(Rubyfaux.metadata).appendTo("#title");
+      //$('#template-navigation').tmpl({}).appendTo('#nav');
+      //$("#template-copyright").tmpl(Rubyfaux.metadata).appendTo("#copyright");
+      //$('#template-searchbox').tmpl({}).appendTo('#searchbox');
+
+      $("#title").append(Rubyfaux.template("title", Rubyfaux.metadata));
+      $('#nav').append(Rubyfaux.template("navigation", Rubyfaux.metadata));
+      $('#copyright').append(Rubyfaux.template("copyright"), Rubyfaux.metadata);
+      $('#searchbox').append(Rubyfaux.template("searchbox", {}));
 
       // Routing
       $.history.init(function(hash){
@@ -185,6 +191,13 @@ Rubyfaux = {
   },
 
   //
+  comparePaths: function(a, b){
+    if (a.path < b.path) {return -1}
+    if (a.path > b.path) {return 1}
+    return 0;
+  },
+
+  //
   getUrlVars: function() {
     var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -207,9 +220,15 @@ Rubyfaux = {
     if (doc != null) {
       var type = doc['!'];
       if(type == 'module'){ type = 'class' };
-      $('#heading').empty().append($('#template-' + type + '-heading').tmpl(doc));
-      $('#content').empty().append($('#template-' + type + '-content').tmpl(doc));
-      $('#sidebar').empty().append($('#template-' + type + '-sidebar').tmpl(doc));
+      $('#heading').empty().append(Rubyfaux.template(type + '_heading', doc));
+      $('#content').empty().append(Rubyfaux.template(type + '_content', doc));
+
+      if (type == 'document') {
+        $('#sidebar').empty().append(Rubyfaux.template(type + '_sidebar', Rubyfaux.documentation));
+      } else {
+        $('#sidebar').empty().append(Rubyfaux.template(type + '_sidebar', doc));
+      };
+
       $('#content').find('pre code').each(function(i, e){hljs.highlightBlock(e, '  ')});
       if(anchor != undefined) {
         $('html, body').animate({ scrollTop: $('#'+anchor).offset().top }, 500);
@@ -228,26 +247,32 @@ Rubyfaux = {
   divy_methods: function(methods) {
     var s = 'instance';
     var v = 'public';
+
     var list = {
       'class':    {'public': new Array(), 'protected': new Array(), 'private': new Array()},
       'instance': {'public': new Array(), 'protected': new Array(), 'private': new Array()}
     }
+
     $.each(methods, function(i, x) {
       var doc = Rubyfaux.documentation_by_key[x];
-      if (doc.declarations.contains('class')) {
+
+      if (doc.declarations.indexOf('class') != -1) {
         s = 'class'
       } else {
         s = 'instance'
-      }
-      if (doc.declarations.contains('private')) {
+      };
+
+      if (doc.declarations.indexOf('private') != -1) {
         v = 'private';
-      } else if (doc.declarations.contains('protected')) {
+      } else if (doc.declarations.indexOf('protected') != -1) {
         v = 'protected';
       } else {
         v = 'public';
       }
+
       list[s][v].push(doc);
     });
+
     return(list);
   },
 
@@ -312,6 +337,11 @@ Rubyfaux = {
     $(id).toogle();
   },
 
+  //
+  template: function(name, data) {
+    return Handlebars.templates[name](data);
+  }
+
 }
 
 /*
@@ -324,17 +354,6 @@ String.prototype.escapeHTML = function () {
   );                                          
 };
 */
-
-//
-Array.prototype.contains = function(obj) {
-    var i = this.length;
-    while (i--) {
-        if (this[i] == obj) {
-            return true;
-        }
-    }
-    return false;
-}
 
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
