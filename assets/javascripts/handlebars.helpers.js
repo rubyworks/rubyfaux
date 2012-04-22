@@ -52,7 +52,7 @@ Handlebars.registerHelper('calc_method_href', function() {
 //
 Handlebars.registerHelper('declares', function(term, options) {
  var out = '';
- if (this.declarations.contains(term)) {
+ if ($.inArray(term, this.declarations) != -1) {
    out = options.fn(this);
  };
  return out;
