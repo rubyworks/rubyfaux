@@ -298,7 +298,7 @@ class RubyFauxApp
   # @todo Support other formats besides RDoc
   #
   markup: (text,format) -> 
-    @rendown.makeHtml(text)
+    @rundown.makeHtml(text)
 
   #
   #

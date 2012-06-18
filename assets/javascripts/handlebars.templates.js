@@ -256,7 +256,7 @@ function program24(depth0,data) {
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "name", { hash: {} }); }
   buffer += escapeExpression(stack1) + "\n        <sup class='attr-rw'>\n          ";
-  stack1 = "kccessor";
+  stack1 = "accessor";
   foundHelper = helpers.declares;
   stack2 = foundHelper || depth0.declares;
   tmp1 = self.program(25, program25, data);
@@ -298,7 +298,7 @@ function program24(depth0,data) {
 function program25(depth0,data) {
   
   
-  return "A";}
+  return "RW";}
 
 function program27(depth0,data) {
   

@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
-ignore 'web'
+ignore 'website', 'heroku'
+
+#include ShellUtils #why does this not work ?
 
 #
 # Run thin server to give site a spin.
@@ -13,9 +15,9 @@ end
 #
 # Compile Handlebar.js templates.
 #
-desc "compile templates"
+desc "compile hnadle bar templates"
 task 'compile' do
-  sh "handlebars assets/templates/*.handlebars -f assets/javascripts/handlebars.templates.js"
+  sh "handlebars source/handlebars/*.handlebars -f assets/javascripts/handlebars.templates.js"
 end
 
 #
@@ -43,26 +45,60 @@ def github
   @github ||= (
     require 'detroit'
     require 'detroit-github'
- 
-    Detroit::GitHub.new(
-      :folder  => 'website',
-      :sitemap => {
-        'index.html' => 'index.html',
-        'doc.json'   => 'doc.json',
-        'assets'     => 'assets'
-      }
+     Detroit::GitHub.new(
+      :folder  => 'website'
+      #:sitemap => {
+      #  'index.html' => 'index.html',
+      #  'doc.json'   => 'doc.json',
+      #  'assets'     => 'assets'
+      #}
     )
   ) 
+end
+
+# Copy project files in website directory.
+desc 'update website files'
+task 'web:update' do
+  mkdir_p 'website'
+  install 'index.html', 'website/index.html'
+  install 'doc.json', 'website/doc.json'
+  sync 'assets', 'website/assets'
+end
+
+desc 'publish website'
+task 'web:publish' => ['web:update'] do
+  cd 'website' do
+    sh 'git add index.html doc.json assets'
+    sh 'git commit -a -m "Automatic update."'
+    sh 'git push origin gh-pages'
+  end
 end
 
 desc 'publish to heroku'
 task 'heroku' do
   mkdir_p 'heroku'
-  cp   'index.html', 'heroku/'
-  cp   'doc.json',   'heroku/'
-  cp_r 'assets',     'heroku/'
+  install 'index.html', 'heroku/index.html'
+  install 'doc.json', 'heroku/doc.json'
+  sync 'assets', 'heroku/assets'
+
   cd 'heroku' do
+    sh 'git add index.html doc.json assets'
+    sh 'git commit -a -m "Automatic update."'
     sh 'git push orgin master'
   end
 end
+
+file 'source/handlebars/*.handlebars' do
+  run :compile
+end
+
+#group :web do
+#  file 'assets' do |paths|
+#    sync 'assets', 'website/assets'
+#  end
+#
+#  file 'index.html' do
+#    install 'index.html', 'website/index.html'
+#  end
+#end
 
