@@ -6,12 +6,13 @@
 
 ## Welcome
 
-Rubyfaux is a Shomen-based documentation browser with a ruby-lang.org style.
+Rubyfaux is a Shomen-based documentation browser with an old-school
+ruby-lang.org style.
 
 
 ## Features
 
-* Spitting image of ruby-lang.org style give documentation offical look.
+* Old-school ruby-lang.org style gives documentation an offical look-and-feel.
 * Quicksearch sidebar makes it easy to locate classes and methods.
 * Built on JQuery, JQuery Templates and other well supported Javascript tools.
 
