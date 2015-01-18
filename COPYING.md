@@ -1,6 +1,6 @@
-= COPYRIGHT NOTICES
+# COPYRIGHT NOTICES
 
-== Rubyfaux
+## Rubyfaux
 
 Copyright:: (c) 2011 Rubyworks
 License:: BSD-2-Clause
@@ -32,7 +32,7 @@ Website:: http://github.com/rubyworks/rubyfaux
    (http://spdx.org/licenses/BSD-2-Clause)
 
 
-== jQuery
+## jQuery
 
 Copyright:: (c) 2011 John Resig, http://jquery.com/
 License:: MIT
@@ -62,7 +62,7 @@ Website:: http://jquery.com
     (http://spdx.org/licenses/MIT)
 
 
-== Highlight.js
+## Highlight.js
 
 Copyright:: (c) 2006 Ivan Sagalaev
 License:: BSD-3-Caluse
@@ -99,7 +99,7 @@ Website:: http://softwaremaniacs.org/soft/highlight/en/
     (http://spdx.org/licenses/BSD-3-Clause)
 
 
-== Showdown
+## Showdown
 
 Copyright:: (c) 2007 John Fraser.
 License:: BSD-3-Clause
@@ -143,7 +143,7 @@ Website:: http://www.attacklab.net/
     (http://spdx.org/licenses/BSD-3-Clause)
 
 
-== Quicksearch
+## Quicksearch
 
 Copyright:: (c) Rik Lomas
 License:: MIT
@@ -171,7 +171,7 @@ Website:: http://github.com/riklomas/quicksearch
     (http://spdx.org/licenses/MIT)
 
 
-== Keymaster
+## Keymaster
 
 Copyright:: (c) 2011 Thomas Fuchs
 License:: MIT
